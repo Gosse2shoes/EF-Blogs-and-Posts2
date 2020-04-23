@@ -48,13 +48,12 @@ namespace Blogs_Console
                         var db = new BloggingContext();
                         Console.WriteLine("Please choose a Blog you would like to post to: ");
                         var name = Console.ReadLine();
-                        var blog = db.Blogs.Where(b => b.Name.Contains(name));
+                        var blog = db.Blogs.FirstOrDefault(b => b.Name.Contains(name));
                         Console.WriteLine("What is the title of the Post: ");
-                        var title = Console.ReadLine();
-                        var post = new Post { Title = title };
+                        var title = Console.ReadLine();                        
                         Console.WriteLine("What is the content of the Post: ");
-                        var content = Console.ReadLine();
-                        post = new Post { Content = content };
+                        var content = Console.ReadLine();                        
+                        var post = new Post { Title = title, Content = content, BlogId = blog.BlogId };
                         db.AddPost(post);
                         logger.Info("Post added - {title}", title);
                         logger.Info("Post added - {content}", content);
